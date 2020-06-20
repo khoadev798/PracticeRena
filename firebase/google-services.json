@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "850161226581",
+    "firebase_url": "https://demolt15101.firebaseio.com",
+    "project_id": "demolt15101",
+    "storage_bucket": "demolt15101.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850161226581:android:c027170bf5c522cd9c15dc",
+        "android_client_info": {
+          "package_name": "com.kietlpt.LoginFB"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "850161226581-opsvt3a78es7otv85957alolr59n4rjt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kietlpt.LoginFB",
+            "certificate_hash": "f8865aec8004f603ecc01304acf19ceea095c3bc"
+          }
+        },
+        {
+          "client_id": "850161226581-jk0aaq6snso7t79ncoko0o7h50eiv2bu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqv5TDUJasKsdMRBXa_zwVuDEnGbroqiI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "850161226581-jk0aaq6snso7t79ncoko0o7h50eiv2bu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,11 +2,7 @@
   "expo": {
     "name": "PracticeRena",
     "slug": "PracticeRena",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,11 +14,21 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.850161226581-soencao31avs72v9jlno7bbdnouedagr"
+        }
+      },
+
+      "googleServicesFile": "./firebase/GoogleService-Info.plist"
+    },
+    "android": {
+      "package": "vn.com.PracticeRena",
+      "versionCode": 1,
+      "googleServicesFile": "./firebase/google-services.json"
     }
   }
 }

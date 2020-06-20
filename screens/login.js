@@ -11,6 +11,9 @@ import {
 import { AuthContext } from "../navigation/AuthProvider";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
+import SocialLoginArea from "../screens/SocialLoginGeneral";
+// import FacebookButton from "../components/FacebookLoginButton";
+
 // import { TextInput } from "react-native-gesture-handler";
 const appLogin = (navigation, email, pass) => {
   if (email == "admin" && pass == "123") {
@@ -52,7 +55,8 @@ export const login = ({ navigation }) => {
         <Text>LOGIN</Text>
       </TouchableOpacity> */}
       <FormButton buttonTitle="Login" onPress={() => login(email, pass)} />
-
+      {/* <FacebookButton /> */}
+      <SocialLoginArea />
       <TouchableOpacity
         style={styles.bottomText}
         onPress={() => {
