@@ -21,9 +21,11 @@ export default function SocialLoginArea() {
     image: imageGuest,
   });
   const [isImageLoading, setImageLoadStatus] = useState(false);
-
+  function getUserData() {
+    return { userData };
+  }
   facebookLogIn = async () => {
-    const token = await Social.loginFacebook("259114542010823");
+    const token = await Social.loginFacebook("713064715892202");
     // const token = "259114542010823|OH_XjkVls4fMMqIY9xt_6XXzidI";
     if (token !== null) {
       // Get the user's name using Facebook's Graph API
@@ -53,7 +55,7 @@ export default function SocialLoginArea() {
 
   googleLogIn = async () => {
     const data = await Social.loginGoogle(
-      "850161226581-opsvt3a78es7otv85957alolr59n4rjt.apps.googleusercontent.com"
+      "541438332950-g34g79l8vmstdohq5bkfof0bhd20obl5.apps.googleusercontent.com"
     );
     if (data !== null) {
       setIsGoogle(true);
@@ -100,14 +102,14 @@ export default function SocialLoginArea() {
           {isFaceBook ? "Logout Facebook" : "Login with Facebook"}{" "}
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.logoutBtn}
         onPress={() => (isGoogle ? googleLogOut() : googleLogIn())}
       >
         <Text style={{ color: "#fff" }}>
           {isGoogle ? "Logout Google" : "Login with Google"}
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }

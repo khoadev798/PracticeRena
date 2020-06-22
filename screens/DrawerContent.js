@@ -5,7 +5,7 @@ import { View, StyleSheet } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { AuthContext } from "../navigation/AuthProvider";
-
+import { SocailLoginArea } from "../screens/SocialLoginGeneral";
 // npm i --save react-native-paper => paper for icons
 import {
   Avatar,
@@ -20,6 +20,8 @@ import {
 export function DrawerContent(props) {
   const { logout } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
+  const imageURL = user.imageURL;
+  const name = user.username;
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
@@ -28,13 +30,12 @@ export function DrawerContent(props) {
             <View style={{ flexDirection: "row", marginTop: 15 }}>
               <Avatar.Image
                 source={{
-                  uri:
-                    "https://firebasestorage.googleapis.com/v0/b/practicerena.appspot.com/o/avatar.png?alt=media&token=d4749fd7-c33f-4d5b-b0bf-f93c389da961",
+                  uri: imageURL,
                 }}
                 size={50}
               />
               <View style={{ marginLeft: 5, flexDirection: "column" }}>
-                <Title style={styles.title}>{user.username}</Title>
+                <Title style={styles.title}>{name}</Title>
                 <Caption style={styles.caption}>@User</Caption>
               </View>
             </View>

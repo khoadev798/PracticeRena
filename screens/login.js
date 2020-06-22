@@ -11,7 +11,7 @@ import {
 import { AuthContext } from "../navigation/AuthProvider";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
-import SocialLoginArea from "../screens/SocialLoginGeneral";
+// import SocialLoginArea from "../screens/SocialLoginGeneral";
 // import FacebookButton from "../components/FacebookLoginButton";
 
 // import { TextInput } from "react-native-gesture-handler";
@@ -28,7 +28,7 @@ const appLogin = (navigation, email, pass) => {
 export const login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  const { login } = useContext(AuthContext);
+  const { login, facebookLogin } = useContext(AuthContext);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -56,7 +56,17 @@ export const login = ({ navigation }) => {
       </TouchableOpacity> */}
       <FormButton buttonTitle="Login" onPress={() => login(email, pass)} />
       {/* <FacebookButton /> */}
-      <SocialLoginArea />
+      {/* <SocialLoginArea /> */}
+      <TouchableOpacity
+        style={styles.logoutBtn}
+        onPress={() => facebookLogin()}
+      >
+        <Text style={{ color: "#000" }}>
+          {/* {isFaceBook ? "Logout Facebook" : "Login with Facebook"}{" "}
+           */}
+          Login with Facebook
+        </Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.bottomText}
         onPress={() => {
