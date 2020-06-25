@@ -11,6 +11,9 @@ import {
 import { AuthContext } from "../navigation/AuthProvider";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
+// import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon from "react-native-vector-icons/FontAwesome5";
+
 // import SocialLoginArea from "../screens/SocialLoginGeneral";
 // import FacebookButton from "../components/FacebookLoginButton";
 
@@ -33,6 +36,8 @@ export const login = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>WELCOME</Text>
+
+      {/* <Text style={styles.title}>NBA FANS</Text> */}
       <FormInput
         value={email}
         placeholder="Email"
@@ -57,15 +62,36 @@ export const login = ({ navigation }) => {
       <FormButton buttonTitle="Login" onPress={() => login(email, pass)} />
       {/* <FacebookButton /> */}
       {/* <SocialLoginArea /> */}
+
       <TouchableOpacity
-        style={styles.logoutBtn}
+        // style={styles.logoutBtn}
         onPress={() => facebookLogin()}
       >
-        <Text style={{ color: "#000" }}>
-          {/* {isFaceBook ? "Logout Facebook" : "Login with Facebook"}{" "}
-           */}
-          Login with Facebook
-        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: 10,
+            padding: 5,
+            backgroundColor: "#3B5998",
+            borderRadius: 5,
+          }}
+        >
+          <Icon
+            name="facebook"
+            size={25}
+            color="#fff"
+            style={{ height: 25, width: 25 }}
+          />
+          <Text
+            style={{
+              color: "#fff",
+              paddingLeft: 5,
+              fontSize: 20,
+            }}
+          >
+            Countinue with Facebook
+          </Text>
+        </View>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.bottomText}

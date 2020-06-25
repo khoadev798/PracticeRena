@@ -19,8 +19,8 @@ import firebase from "../firebase/firebase.js";
 import * as ImagePicker from "expo-image-picker";
 import Swipeout from "react-native-swipeout";
 
-export const Product = () => {
-  const itemsRef = firebase.database().ref().child("products");
+export const Player = () => {
+  const itemsRef = firebase.database().ref().child("players");
   const [lists, setLists] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
@@ -42,8 +42,8 @@ export const Product = () => {
         let item = {
           key: child.key,
           name: child.val().name,
-          price: child.val().price,
-          info: child.val().info,
+          team: child.val().team,
+          height: child.val().height,
           image: child.val().image,
         };
         items.push(item);
@@ -63,7 +63,7 @@ export const Product = () => {
       <FlatList
         data={lists}
         renderItem={({ item }) => (
-          <ProductItem
+          <PlayerItem
             item={item}
             _showDialog={_showDialog}
             _setCurrent={_setCurrent}
@@ -81,19 +81,19 @@ export const Product = () => {
         <Text style={styles.text}>+</Text>
       </TouchableOpacity>
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <ProductInsUp item={currentItem} _hideDialog={_hideDialog} />
+        <PlayerInsUp item={currentItem} _hideDialog={_hideDialog} />
       </Modal>
     </View>
   );
 };
 //Insert Update Product function
-const ProductInsUp = (props) => {
+const PlayerInsUp = (props) => {
   const [item] = useState(props.item);
   const [isInsert] = useState(item == null);
   const [key, setKey] = useState("");
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [info, setInfo] = useState("");
+  const [team, setTeam] = useState("");
+  const [height, setHeight] = useState("");
   const [image, setImage] = useState("https://reactjs.org/logo-og.png");
 
   //function chọn ảnh
@@ -134,17 +134,17 @@ const ProductInsUp = (props) => {
   };
 
   //function Insert Product
-  const insertProduct = async () => {
+  const insertPlayer = async () => {
     const remoteUri = await _uploadImage(image);
 
     firebaseConfig
       .database()
       .ref()
-      .child("products")
+      .child("players")
       .push({
         name: name,
-        price: price,
-        info: info,
+        team: team,
+        height: height,
         image: remoteUri,
       })
       .then(() => {
@@ -157,17 +157,17 @@ const ProductInsUp = (props) => {
       });
   };
   //function Update Product
-  const updateProduct = async () => {
+  const updatePlayer = async () => {
     const remoteUri = await _uploadImage(image);
     firebaseConfig
       .database()
       .ref()
-      .child("products")
+      .child("players")
       .child(key)
       .set({
         name: name,
-        price: price,
-        info: info,
+        team: team,
+        height: height,
         image: remoteUri,
       })
       .then(() => {
@@ -184,8 +184,8 @@ const ProductInsUp = (props) => {
     if (!isInsert) {
       setKey(props.item.key);
       setName(props.item.name);
-      setPrice(props.item.price);
-      setInfo(props.item.info);
+      setTeam(props.item.team);
+      setHeight(props.item.height);
       setImage(props.item.image);
     }
   }, []);
@@ -194,7 +194,7 @@ const ProductInsUp = (props) => {
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
         <Text style={styles.modalText}>
-          {isInsert ? "Insert" : "Update"} Product
+          {isInsert ? "Insert" : "Update"} Player
         </Text>
         <TouchableWithoutFeedback onPress={() => _chooseImage()}>
           <Image
@@ -212,20 +212,20 @@ const ProductInsUp = (props) => {
         </View>
 
         <View style={styles.lineDialog}>
-          <Text style={styles.textDialog}>Price: </Text>
+          <Text style={styles.textDialog}>Team: </Text>
           <TextInput
             style={styles.textInputDialog}
-            value={price}
-            onChangeText={(text) => setPrice(text)}
+            value={team}
+            onChangeText={(text) => setTeam(text)}
           />
         </View>
 
         <View style={styles.lineDialog}>
-          <Text style={styles.textDialog}>Info: </Text>
+          <Text style={styles.textDialog}>Height: </Text>
           <TextInput
             style={styles.textInputDialog}
-            value={info}
-            onChangeText={(text) => setInfo(text)}
+            value={height}
+            onChangeText={(text) => setHeight(text + "cm")}
           />
         </View>
 
@@ -251,7 +251,7 @@ const ProductInsUp = (props) => {
             style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
             onPress={() => {
               props._hideDialog();
-              isInsert ? insertProduct() : updateProduct();
+              isInsert ? insertPlayer() : updatePlayer();
             }}
           >
             <Text style={styles.textStyle}>
@@ -264,7 +264,7 @@ const ProductInsUp = (props) => {
   );
 };
 //Item FlatList & Delete function
-const ProductItem = (props) => {
+const PlayerItem = (props) => {
   const swipeoutSettings = {
     autoClose: true,
     onClose: () => {},
@@ -292,7 +292,7 @@ const ProductItem = (props) => {
                 onPress: () => console.log("Cancel Delete "),
                 type: "cancel",
               },
-              { text: "Yes", onPress: () => deleteProduct(props.item.key) },
+              { text: "Yes", onPress: () => deletePlayer(props.item.key) },
             ],
             { cancelable: true }
           );
@@ -301,8 +301,8 @@ const ProductItem = (props) => {
     ],
   };
   //Function Xoa Product
-  const deleteProduct = (key) => {
-    firebaseConfig.database().ref().child("products").child(key).remove();
+  const deletePlayer = (key) => {
+    firebaseConfig.database().ref().child("players").child(key).remove();
   };
 
   return (
@@ -316,8 +316,8 @@ const ProductItem = (props) => {
           <Text style={{ marginLeft: 10, fontSize: 20, fontWeight: "bold" }}>
             Name: {props.item.name}
           </Text>
-          <Text style={{ marginLeft: 10 }}>Price: {props.item.price}</Text>
-          <Text style={{ marginLeft: 10 }}>Info: {props.item.info}</Text>
+          <Text style={{ marginLeft: 10 }}>Team: {props.item.team}</Text>
+          <Text style={{ marginLeft: 10 }}>Height: {props.item.height}</Text>
         </View>
       </View>
     </Swipeout>

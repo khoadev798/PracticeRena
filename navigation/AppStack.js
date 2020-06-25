@@ -1,28 +1,70 @@
 import * as React from "react";
-import { useContext } from "react";
-import { Button, View } from "react-native";
+import { useContext, useState, useRef } from "react";
+// import { Button, View } from "react-native";
+import { StyleSheet, View, Button, Text } from "react-native";
+import YoutubePlayer from "react-native-youtube-iframe";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { AuthContext } from "../navigation/AuthProvider";
 import { DrawerContent } from "../screens/DrawerContent";
-import { Product } from "../screens/Product_CRUD_UpImage";
+import { Player } from "../screens/Product_CRUD_UpImage";
 import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { ScrollView } from "react-native-gesture-handler";
 
 function HomeScreen({ navigation }) {
   const { logout } = useContext(AuthContext);
-
+  const playerRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button
-        onPress={() => navigation.navigate("Products")}
-        title="View available products"
-      />
-      <Button
-        onPress={() => {
-          logout();
-        }}
-        title="Log out"
-      />
+      <ScrollView>
+        <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+          Lebron James's Highlights
+        </Text>
+        <YoutubePlayer
+          ref={playerRef}
+          height={300}
+          width={400}
+          videoId={"N1i3eHM24Jk"}
+          play={false}
+          onChangeState={(event) => console.log(event)}
+          onReady={() => console.log("ready")}
+          onError={(e) => console.log(e)}
+          onPlaybackQualityChange={(q) => console.log(q)}
+          volume={50}
+          playbackRate={1}
+          playerParams={{
+            cc_lang_pref: "us",
+            showClosedCaptions: true,
+          }}
+        />
+        <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+          Kyrie Irving's Highlights
+        </Text>
+
+        <YoutubePlayer
+          ref={playerRef}
+          height={300}
+          width={400}
+          videoId={"Yh8ZDDSQULw"}
+          play={false}
+          onChangeState={(event) => console.log(event)}
+          onReady={() => console.log("ready")}
+          onError={(e) => console.log(e)}
+          onPlaybackQualityChange={(q) => console.log(q)}
+          volume={50}
+          playbackRate={1}
+          playerParams={{
+            cc_lang_pref: "us",
+            showClosedCaptions: true,
+          }}
+        />
+
+        <Button
+          onPress={() => navigation.navigate("Players")}
+          title="View your favorite NBA plyaers"
+        />
+      </ScrollView>
     </View>
   );
 }
@@ -37,7 +79,7 @@ function NotificationsScreen({ navigation }) {
 
 const Drawer = createDrawerNavigator();
 const HomeStack = createStackNavigator();
-const ProductsStack = createStackNavigator();
+const PlayersStack = createStackNavigator();
 const HomeStackScreen = ({ navigation }) => {
   return (
     <HomeStack.Navigator
@@ -74,9 +116,9 @@ const HomeStackScreen = ({ navigation }) => {
     </HomeStack.Navigator>
   );
 };
-const ProductStackScreen = ({ navigation }) => {
+const PlayersStackScreen = ({ navigation }) => {
   return (
-    <ProductsStack.Navigator
+    <PlayersStack.Navigator
       screenOptions={{
         headerStyle: {
           backgroundColor: "#6495ed",
@@ -88,10 +130,10 @@ const ProductStackScreen = ({ navigation }) => {
       }}
     >
       {/* <Stack.Screen name="HomeScreen" component={HomeScreen} title="Home" /> */}
-      <ProductsStack.Screen
-        name="Products"
-        component={Product}
-        title="Product"
+      <PlayersStack.Screen
+        name="Players"
+        component={Player}
+        title="Player"
         options={{
           headerLeft: () => {
             return (
@@ -107,7 +149,7 @@ const ProductStackScreen = ({ navigation }) => {
           },
         }}
       />
-    </ProductsStack.Navigator>
+    </PlayersStack.Navigator>
   );
 };
 
@@ -121,7 +163,7 @@ export const AppStack = () => {
       drawerContent={(props) => <DrawerContent {...props} />}
     >
       <Drawer.Screen name="HomeScreen" component={HomeStackScreen} />
-      <Drawer.Screen name="Products" component={ProductStackScreen} />
+      <Drawer.Screen name="Players" component={PlayersStackScreen} />
     </Drawer.Navigator>
     // </NavigationContainer>
   );

@@ -64,14 +64,14 @@ export function DrawerContent(props) {
           </Drawer.Section>
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
-              label="Products"
+              label="NBA Players"
               icon={({ size, color }) => {
                 return <Icon name="ruby" size={size} color={color} />;
               }}
               onPress={() => {
                 // logout();
                 //Navigate to products
-                props.navigation.navigate("Products");
+                props.navigation.navigate("Players");
               }}
             />
           </Drawer.Section>
