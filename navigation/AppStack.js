@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useContext, useState, useRef } from "react";
 // import { Button, View } from "react-native";
-import { StyleSheet, View, Button, Text } from "react-native";
+import { StyleSheet, View, Button, Text, SafeAreaView } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { AuthContext } from "../navigation/AuthProvider";
@@ -80,6 +80,7 @@ function NotificationsScreen({ navigation }) {
 const Drawer = createDrawerNavigator();
 const HomeStack = createStackNavigator();
 const PlayersStack = createStackNavigator();
+const PasswordUpdateStack = createStackNavigator();
 const HomeStackScreen = ({ navigation }) => {
   return (
     <HomeStack.Navigator
@@ -152,7 +153,25 @@ const PlayersStackScreen = ({ navigation }) => {
     </PlayersStack.Navigator>
   );
 };
+const PasswordUpdateStackScreen = ({ navigation }) => {
+  const [newPassword, setNewPassword] = useState("");
 
+  return (
+    <PasswordUpdateStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#6495ed",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    >
+      <PasswordUpdateStack.Screen></PasswordUpdateStack.Screen>
+    </PasswordUpdateStack.Navigator>
+  );
+};
 export const AppStack = () => {
   // const { logout } = useContext(AuthContext);
 
