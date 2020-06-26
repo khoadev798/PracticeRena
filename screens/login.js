@@ -32,7 +32,6 @@ export const login = ({ navigation }) => {
       />
       <FormInput
         placeholder="Password"
-        keyboardType="password"
         onChangeText={(val) => setPass(val)}
         secureTextEntry={true}
       />

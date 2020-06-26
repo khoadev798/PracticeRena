@@ -62,17 +62,17 @@ export const updateaccount = ({ navigation }) => {
       />
       <FormInput
         placeholder="Current password"
-        keyboardType="password"
+        secureTextEntry={true}
         onChangeText={(val) => setOldPass(val)}
       />
       <FormInput
         placeholder="New password"
-        keyboardType="password"
+        secureTextEntry={true}
         onChangeText={(val) => setNewPass(val)}
       />
       <FormInput
         placeholder="Confirm password"
-        keyboardType="password"
+        secureTextEntry={true}
         onChangeText={(val) => setConfirm(val)}
       />
 
