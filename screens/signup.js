@@ -16,15 +16,20 @@ import FormButton from "../components/FormButton";
 // import { TextInput } from "react-native-gesture-handler";
 
 // const register = (email, pass, confirm) => {};
-export const signup = ({ navigation }) => {
+export const signup = ({ route, navigation }) => {
+  const { isForRegister1 } = route.params;
+  // const { isForRegister2 } = navigation.state.params;
   const [newEmail, setNewEmail] = useState("");
   const [newPass, setNewPass] = useState("");
   const [confirm, setConfirm] = useState("");
-  const { register } = useContext(AuthContext);
+  const { register, isForSignUp } = useContext(AuthContext);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>GET A NEW ACCOUNT</Text>
+      <Text style={styles.title}>
+        {/* GET A NEW ACCOUNT */}
+        {isForRegister1 ? "GET A NEW ACCOUNT" : "UPDATE YOUR ACCOUNT"}
+      </Text>
       <FormInput
         placeholder="Your Email"
         keyboardType="email-address"
@@ -42,9 +47,9 @@ export const signup = ({ navigation }) => {
       />
 
       <FormButton
-        buttonTitle="FINISH"
+        buttonTitle={isForRegister1 ? "FINISH" : "UPDATE"}
         onPress={() => {
-          if (confirm === newPass) {
+          if (confirm === newPass && isForRegister1) {
             register(newEmail, newPass);
           } else {
             Alert.alert("Password does not match");
@@ -56,7 +61,7 @@ export const signup = ({ navigation }) => {
         style={styles.bottomText}
         onPress={() => navigation.navigate("login")}
       >
-        <Text>Back to Login!</Text>
+        <Text>{isForRegister1 ? "Back to login" : ""}</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

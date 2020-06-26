@@ -18,12 +18,7 @@ export const AuthProvider = ({ children }) => {
   const imageGuest =
     "https://firebasestorage.googleapis.com/v0/b/demolt15101.appspot.com/o/images%2Favatar.jpg?alt=media&token=d7261c3c-b680-4d51-b300-5e8f6f94fb6f";
   const [user, setUser] = useState(null);
-
   const [isFaceBook, setIsFaceBook] = useState(false);
-  const [userData, setUserData] = useState({
-    name: "Guest",
-    image: imageGuest,
-  });
   return (
     <AuthContext.Provider
       value={{
@@ -39,20 +34,12 @@ export const AuthProvider = ({ children }) => {
               .then((response) => response.json())
               .then((data) => {
                 setIsFaceBook(true);
-                // const fbUser = {
-                //   usernam: data.name,
-                //   imageURL: data.picture.data.url,
-                // };
-                // setUser(fbUser);
-                // setUser({ imageURL: data.picture.data.url });
-                // setUser({ id: data.name });
 
                 setUser({
                   username: data.name,
                   imageURL: data.picture.data.url,
-                });
-
-                // setUser({ imageURL: imgURL });
+                  isFacebookUser: true,
+                }); // setUser({ imageURL: imgURL });
               })
               .catch((e) => console.log(e));
           }
@@ -69,28 +56,19 @@ export const AuthProvider = ({ children }) => {
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then((user) => {
-              // setUser({ id: email });
-              // setUser({
-              //   imageURL:
-              //     "https://firebasestorage.googleapis.com/v0/b/practicerena.appspot.com/o/avatar.png?alt=media&token=d4749fd7-c33f-4d5b-b0bf-f93c389da961",
-              // });
-
               setUser({
                 username: email,
                 imageURL:
                   "https://firebasestorage.googleapis.com/v0/b/practicerena.appspot.com/o/avatar.png?alt=media&token=d4749fd7-c33f-4d5b-b0bf-f93c389da961",
+                isFacebookUser: false,
               });
 
-              console.log("Login success!");
               // ToastAndroid.show("Login Success", ToastAndroid.SHORT);
               // Toast.show("Login success", Toast.SHORT);
             })
             .catch((error) => {
               const { code, message } = error;
               console.log("Error: " + message);
-              // Toast.show("Error: " + message, 1);
-              //   Alert.alert("Error: ", message);
-              // ToastAndroid.show("Login fail!", ToastAndroid.SHORT);
             });
         },
         register: async (email, password) => {
@@ -111,6 +89,7 @@ export const AuthProvider = ({ children }) => {
         },
         logout: async () => {
           setUser(null);
+
           // ToastAndroid.show("Logout!", ToastAndroid.SHORT);
         },
       }}

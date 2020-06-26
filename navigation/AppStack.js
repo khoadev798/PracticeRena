@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useContext, useState, useRef } from "react";
-// import { Button, View } from "react-native";
 import { StyleSheet, View, Button, Text, SafeAreaView } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -10,11 +9,12 @@ import { Player } from "../screens/Product_CRUD_UpImage";
 import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScrollView } from "react-native-gesture-handler";
-
+import { updateaccount } from "../screens/updateaccount";
+//Youtube video
 function HomeScreen({ navigation }) {
-  const { logout } = useContext(AuthContext);
+  // const { logout } = useContext(AuthContext);
   const playerRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
+  // const [playing, setPlaying] = useState(false);
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <ScrollView>
@@ -81,6 +81,7 @@ const Drawer = createDrawerNavigator();
 const HomeStack = createStackNavigator();
 const PlayersStack = createStackNavigator();
 const PasswordUpdateStack = createStackNavigator();
+//HomeStackScreen from HomeStack to show header.
 const HomeStackScreen = ({ navigation }) => {
   return (
     <HomeStack.Navigator
@@ -117,6 +118,7 @@ const HomeStackScreen = ({ navigation }) => {
     </HomeStack.Navigator>
   );
 };
+//PlayerStack shows player info
 const PlayersStackScreen = ({ navigation }) => {
   return (
     <PlayersStack.Navigator
@@ -153,8 +155,10 @@ const PlayersStackScreen = ({ navigation }) => {
     </PlayersStack.Navigator>
   );
 };
-const PasswordUpdateStackScreen = ({ navigation }) => {
-  const [newPassword, setNewPassword] = useState("");
+
+//Update account info, only available with email/password account
+const PasswordUpdateStackScreen = ({ navigation, route }) => {
+  // const [newPassword, setNewPassword] = useState("");
 
   return (
     <PasswordUpdateStack.Navigator
@@ -168,7 +172,25 @@ const PasswordUpdateStackScreen = ({ navigation }) => {
         },
       }}
     >
-      <PasswordUpdateStack.Screen></PasswordUpdateStack.Screen>
+      <PasswordUpdateStack.Screen
+        name="AccountUpdate"
+        component={updateaccount}
+        title="Update account info"
+        options={{
+          headerLeft: () => {
+            return (
+              <Icon.Button
+                name="menu"
+                size={25}
+                backgroundColor="#6495ed"
+                onPress={() => {
+                  navigation.openDrawer();
+                }}
+              ></Icon.Button>
+            );
+          },
+        }}
+      />
     </PasswordUpdateStack.Navigator>
   );
 };
@@ -183,6 +205,10 @@ export const AppStack = () => {
     >
       <Drawer.Screen name="HomeScreen" component={HomeStackScreen} />
       <Drawer.Screen name="Players" component={PlayersStackScreen} />
+      <Drawer.Screen
+        name="UpdateAccount"
+        component={PasswordUpdateStackScreen}
+      />
     </Drawer.Navigator>
     // </NavigationContainer>
   );

@@ -1,4 +1,3 @@
-import firebaseConfig from "../firebase/firebase";
 import * as firebase from "firebase";
 import * as Facebook from "expo-facebook";
 import * as GoogleSignIn from "expo-google-sign-in";

@@ -11,23 +11,8 @@ import {
 import { AuthContext } from "../navigation/AuthProvider";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
-// import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-// import SocialLoginArea from "../screens/SocialLoginGeneral";
-// import FacebookButton from "../components/FacebookLoginButton";
-
-// import { TextInput } from "react-native-gesture-handler";
-const appLogin = (navigation, email, pass) => {
-  if (email == "admin" && pass == "123") {
-    Alert.alert("Nice");
-    navigation.navigate("Notifications");
-    // return true;
-  } else {
-    Alert.alert("Oops!");
-    // return false;
-  }
-};
 export const login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -47,26 +32,14 @@ export const login = ({ navigation }) => {
       />
       <FormInput
         placeholder="Password"
-        keyboardType="visible-password"
+        keyboardType="password"
         onChangeText={(val) => setPass(val)}
         secureTextEntry={true}
       />
-      {/* <TouchableOpacity
-        onPress={() => {
-          // appLogin(navigation, email, pass);
-          login(email, pass);
-        }}
-      >
-        <Text>LOGIN</Text>
-      </TouchableOpacity> */}
-      <FormButton buttonTitle="Login" onPress={() => login(email, pass)} />
-      {/* <FacebookButton /> */}
-      {/* <SocialLoginArea /> */}
 
-      <TouchableOpacity
-        // style={styles.logoutBtn}
-        onPress={() => facebookLogin()}
-      >
+      <FormButton buttonTitle="Login" onPress={() => login(email, pass)} />
+
+      <TouchableOpacity onPress={() => facebookLogin()}>
         <View
           style={{
             flexDirection: "row",
@@ -98,7 +71,8 @@ export const login = ({ navigation }) => {
         onPress={() => {
           //Go to register screen
           //Navigate...
-          navigation.navigate("signup");
+
+          navigation.navigate("signup", { isForRegister1: true });
         }}
       >
         <Text>Sign up now!</Text>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { AuthContext } from "../navigation/AuthProvider";
@@ -18,10 +18,11 @@ import {
   Switch,
 } from "react-native-paper";
 export function DrawerContent(props) {
-  const { logout } = useContext(AuthContext);
+  const { logout, facebookLogin } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
   const imageURL = user.imageURL;
   const name = user.username;
+  const FB = user.isFacebookUser;
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
@@ -72,6 +73,26 @@ export function DrawerContent(props) {
                 // logout();
                 //Navigate to products
                 props.navigation.navigate("Players");
+              }}
+            />
+          </Drawer.Section>
+          <Drawer.Section style={styles.drawerSection}>
+            <DrawerItem
+              label="Update account info"
+              icon={({ size, color }) => {
+                return <Icon name="settings" size={size} color={color} />;
+              }}
+              onPress={() => {
+                // logout();
+                //Navigate to products
+                if (FB) {
+                  Alert.alert(
+                    "NOTICE",
+                    "This function is not compatible for Facebook user! "
+                  );
+                } else {
+                  props.navigation.navigate("UpdateAccount");
+                }
               }}
             />
           </Drawer.Section>
